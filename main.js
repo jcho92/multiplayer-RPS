@@ -267,12 +267,6 @@ $("#chatsubmit1").on("click", function (event) {
     database.ref("/chatuser1").set({
         dbchatuser1: chatuser1,
     })
-    database.ref().once("value", function (snapshot) {
-        document.getElementById("p2chat").innerHTML ="your opponent says: " + snapshot.val().chatuser1.dbchatuser1;
-        document.getElementById("p1message").innerHTML = "you said: " + snapshot.val().chatuser1.dbchatuser1;
-    })
-
-
 })
 
 $("#chatsubmit2").on("click", function (event) {
@@ -281,14 +275,14 @@ $("#chatsubmit2").on("click", function (event) {
     database.ref("/chatuser2").set({
         dbchatuser2: chatuser2,
     })
-    database.ref().once("value", function (snapshot) {
-        document.getElementById("p1chat").innerHTML = "your opponent says: " + snapshot.val().chatuser2.dbchatuser2;
-        document.getElementById("p2message").innerHTML = "you said: " +snapshot.val().chatuser2.dbchatuser2;
-    })
-
-
 })
 
+database.ref().on("value", function (snapshot) {
+    document.getElementById("p1chat").innerHTML = "your opponent says: " + snapshot.val().chatuser2.dbchatuser2;
+    document.getElementById("p2message").innerHTML = "you said: " +snapshot.val().chatuser2.dbchatuser2;
+    document.getElementById("p2chat").innerHTML ="your opponent says: " + snapshot.val().chatuser1.dbchatuser1;
+    document.getElementById("p1message").innerHTML = "you said: " + snapshot.val().chatuser1.dbchatuser1;
+})
 
 function remove() {
     database.ref().remove()
