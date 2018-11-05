@@ -179,6 +179,11 @@ database.ref().on("value", function (snapshot) {
     } else {
         $("#playernametwo").text("awaiting player two");
     }
+
+    if (snapshot.child("userOne/dbusername1").exists() && (snapshot.child("userTwo/dbusername2").exists())){
+        $(".userinput").css("display", "none");
+        $(".userinterface").css("display", "block");
+    }
 })
 
 // function listens to the click values and when both values have been chosen will determine the winner and wipe the data
@@ -254,12 +259,6 @@ database.ref().on("value", function (snapshot) {
     }
 });
 
-database.ref().on("value", function (snapshot) {
-    document.getElementById("p1wins").innerHTML = snapshot.val().userOnewins.dbuser1Wins;
-    document.getElementById("p2wins").innerHTML = snapshot.val().userTwowins.dbuser2Wins;
-});
-
-
 //chat function 
 $("#chatsubmit1").on("click", function (event) {
     event.preventDefault();
@@ -282,6 +281,8 @@ database.ref().on("value", function (snapshot) {
     document.getElementById("p2message").innerHTML = "you said: " +snapshot.val().chatuser2.dbchatuser2;
     document.getElementById("p2chat").innerHTML ="your opponent says: " + snapshot.val().chatuser1.dbchatuser1;
     document.getElementById("p1message").innerHTML = "you said: " + snapshot.val().chatuser1.dbchatuser1;
+    document.getElementById("p1wins").innerHTML = snapshot.val().userOnewins.dbuser1Wins;
+    document.getElementById("p2wins").innerHTML = snapshot.val().userTwowins.dbuser2Wins;
 })
 
 function remove() {

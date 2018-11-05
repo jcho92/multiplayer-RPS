@@ -26,45 +26,52 @@
     <div class="container">
         <div class="interface">
             <div id="playerOneInterface">
-                <form>
-                    <input type="text" id="player1">
-                    <input type="submit" id="addUser1" value="submit">
-                </form>
+                <div class="userinput">
+                    <p>Enter your name to start</p>
+                    <form>
+                        <input type="text" id="player1">
+                        <input type="submit" id="addUser1" value="submit">
+                    </form>
+                </div>
 
-
-                <h2>Rock Paper scissors!</h2>
-                <p id="p1choice"></p>
-                <button id="rock" onclick="rock1()">rock1</button>
-                <button id="paper" onclick="paper1()">paper1</button>
-                <button id="siccors" onclick="scissors1()">scissors1</button>
-                <p id="p1chat"></p>
-                <p id="p1message"></p>
-                <form>
-                    <input type="text" id="chatuser1">
-                    <input type="submit" id="chatsubmit1" value="message">
-                </form>
-
+                <div class="userinterface">
+                    <h2>Rock Paper scissors!</h2>
+                    <p id="p1choice"></p>
+                    <button id="rock" onclick="rock1()">rock1</button>
+                    <button id="paper" onclick="paper1()">paper1</button>
+                    <button id="siccors" onclick="scissors1()">scissors1</button>
+                    <p id="p1chat"></p>
+                    <p id="p1message"></p>
+                    <form>
+                        <input type="text" id="chatuser1">
+                        <input type="submit" id="chatsubmit1" value="message">
+                    </form>
+                </div>
             </div>
 
             <div id="playerTwoInterface">
-                <form>
-                    <input type="text" id="player2">
-                    <input type="submit" id="addUser2" value="submit">
-                </form>
+                <div class="userinput">
+                    <p>Enter your name to start</p>
+                    <form>
+                        <input type="text" id="player2">
+                        <input type="submit" id="addUser2" value="submit">
+                    </form>
+                </div>
 
+                <div class="userinterface">
+                    <h2>Rock Paper scissors!</h2>
+                    <p id="p2choice"></p>
+                    <button id="rock" onclick="rock2()">rock2</button>
+                    <button id="paper" onclick="paper2()">paper2</button>
+                    <button id="siccors" onclick="scissors2();">scissors2</button>
+                    <p id="p2chat"></p>
 
-                <h2>Rock Paper scissors!</h2>
-                <p id="p2choice"></p>
-                <button id="rock" onclick="rock2()">rock2</button>
-                <button id="paper" onclick="paper2()">paper2</button>
-                <button id="siccors" onclick="scissors2();">scissors2</button>
-                <p id="p2chat"></p>
-
-                <p id="p2message"></p>
-                <form>
-                    <input type="text" id="chatuser2">
-                    <input type="submit" id="chatsubmit2" value="message">
-                </form>
+                    <p id="p2message"></p>
+                    <form>
+                        <input type="text" id="chatuser2">
+                        <input type="submit" id="chatsubmit2" value="message">
+                    </form>
+                </div>
             </div>
         </div>
         <div id="mutualdisplay">
