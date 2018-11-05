@@ -105,7 +105,6 @@ function rock1() {
     database.ref("/firstplayer_choice").set({
         dbuserChoice1: userchoice1,
     });
-    document.getElementById("p1choice").innerHTML ="You chose rock"
 
 };
 function paper1() {
@@ -113,7 +112,6 @@ function paper1() {
     database.ref("/firstplayer_choice").set({
         dbuserChoice1: userchoice1,
     });
-    document.getElementById("p1choice").innerHTML ="You chose rock"
 
 }
 function scissors1() {
@@ -121,7 +119,6 @@ function scissors1() {
     database.ref("/firstplayer_choice").set({
         dbuserChoice1: userchoice1,
     });
-    document.getElementById("p1choice").innerHTML ="You chose rock"
 
 }
 
