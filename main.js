@@ -287,4 +287,12 @@ database.ref().on("value", function (snapshot) {
 function remove() {
     database.ref().remove()
     $("#statusID").text("");
-}
+    database.ref("/chatuser1").set({
+        dbchatuser1: " ",
+        
+    })
+    database.ref("/chatuser2").set({
+        dbchatuser2: " ",
+        
+    })
+    }
