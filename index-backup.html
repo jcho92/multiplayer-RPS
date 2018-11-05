@@ -1,0 +1,259 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>rock paper scissors</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+
+</head>
+
+<body>
+    
+
+
+    <form>
+        <input type="text" id="player1">
+        <input type="submit" id="addUser1" value="submit">
+    </form>
+    <div id="playerOneInterface">
+
+        <h2>Rock Paper scissors!</h2>
+        <button id="rock" onclick="rock1()">rock1</button>
+        <button id="paper" onclick="paper1()">paper1</button>
+        <button id="siccors" onclick="scissors1()">scissors1</button>
+
+        <form>
+            <input type="text" id="player2">
+            <input type="submit" id="addUser2" value="submit">
+        </form>
+    </div>
+    <div id="playerTwoInterface">
+        <h2>Rock Paper scissors!</h2>
+        <button id="rock" onclick="rock2()">rock2</button>
+        <button id="paper" onclick="paper2()">paper2</button>
+        <button id="siccors" onclick="scissors2();">scissors2</button>
+
+        <div>
+            <h2 id="winner">Who won?</h2>
+        </div>
+    </div>
+    <div id="mutualdisplay">
+        <h2>player names</h2>
+        <p id="playernameone">player name </p><span id="p1wins">john</span>
+        <p id="playernametwo">player name </p><span id="p2wins">bob</span>
+    </div>
+
+    </div>
+    <button onclick="remove()">remove</button>
+    <script>
+
+
+        var config = {
+            apiKey: "AIzaSyCBGPX62rFRoiqdJn4GKjjqZgmJwKu_reY",
+            authDomain: "john-e11b3.firebaseapp.com",
+            databaseURL: "https://john-e11b3.firebaseio.com",
+            projectId: "john-e11b3",
+            storageBucket: "john-e11b3.appspot.com",
+            messagingSenderId: "530050015277"
+        };
+
+        firebase.initializeApp(config);
+        var database = firebase.database();
+        console.log(database);
+        var username1 = 0;
+        var userchoice1 = 0;
+        var username2 = 0;
+        var userchoice2 = 0;
+        var user1Wins = 0;
+        var user2Wins = 0;
+        console.log(user2Wins)
+
+        $("#addUser1").on("click", function (event) {
+            event.preventDefault();
+            username1 = $("#player1").val()
+            user1Wins = 0
+            //sets the databse for user one
+            database.ref("/userOne").set({
+                dbusername1: username1,
+
+            })
+            //sets the databse for how many times user one wins
+            database.ref("/userOnewins").set({
+                dbuser1Wins: user1Wins,
+            })
+
+        })
+        function rock1() {
+            userchoice1 = "rock"
+            // sets the database for first players Choice
+            database.ref("/firstplayer_choice").set({
+                dbuserChoice1: userchoice1,
+            });
+
+        };
+        function paper1() {
+            var userchoice1 = "paper"
+            database.ref("/firstplayer_choice").set({
+                dbuserChoice1: userchoice1,
+            });
+
+        }
+        function scissors1() {
+            var userchoice1 = "scissors"
+            database.ref("/firstplayer_choice").set({
+                dbuserChoice1: userchoice1,
+            });
+
+        }
+
+
+
+        //player 2 functions
+        $("#addUser2").on("click", function (event) {
+            event.preventDefault();
+            username2 = $("#player2").val()
+            user2Wins = 0
+            //sets the database for user 2
+            database.ref("/userTwo").set({
+                dbusername2: username2,
+            })
+            // sets the databse for how many times user 2 has won
+            database.ref("/userTwowins").set({
+                dbuser2Wins: user2Wins,
+            })
+
+
+        })
+
+        // player 2 functions
+        function rock2() {
+            var userchoice2 = "rock"
+            database.ref("/secondplayer_choice").set({
+                dbuserChoice2: userchoice2,
+            });
+
+        }
+        function paper2() {
+            var userchoice2 = "paper"
+            database.ref("/secondplayer_choice").set({
+                dbuserChoice2: userchoice2,
+            });
+
+        }
+        function scissors2() {
+            var userchoice2 = "scissors"
+            database.ref("/secondplayer_choice").set({
+                dbuserChoice2: userchoice2,
+            });
+
+        }
+
+        // this functions looks at the database to determine which player has entered and which player is still awaiting to join
+        database.ref().on("value", function (snapshot) {
+            if (snapshot.child("userOne/dbusername1").exists()) {
+                $("#playernameone").text(snapshot.val().userOne.dbusername1)
+            } else {
+                $("#playernameone").text("awaiting player one");
+            }
+            if (snapshot.child("userTwo/dbusername2").exists()) {
+                $("#playernametwo").text(snapshot.val().userTwo.dbusername2)
+            } else {
+                $("#playernametwo").text("awaiting player two");
+            }
+        })
+
+        // function listens to the click values and when both values have been chosen will determine the winner and wipe the data
+        database.ref().on("value", function (snapshot) {
+
+            if (snapshot.child("firstplayer_choice/dbuserChoice1").exists() && snapshot.child("secondplayer_choice/dbuserChoice2").exists()) {
+                console.log("working")
+
+                if (snapshot.val().firstplayer_choice.dbuserChoice1 == "rock") {
+                    console.log("user one has chosen rock");
+                    if (snapshot.val().secondplayer_choice.dbuserChoice2 == "rock") {
+                        console.log("tie")
+                        document.getElementById("winner").innerHTML = "its a tie";
+                    }
+                    else if (snapshot.val().secondplayer_choice.dbuserChoice2 == "paper") {
+                        console.log("user 1 loses")
+                        document.getElementById("winner").innerHTML = snapshot.val().userTwo.dbusername2 + " wins";
+                        user2Wins++
+                        console.log(user2Wins)
+                    }
+                    else if (snapshot.val().secondplayer_choice.dbuserChoice2 == "scissors") {
+                        user1Wins++
+                        console.log("user 1 wins")
+                        document.getElementById("winner").innerHTML = snapshot.val().userOne.dbusername1 + " wins";
+
+                    }
+                }
+                else if (snapshot.val().firstplayer_choice.dbuserChoice1 == "paper") {
+                    if (snapshot.val().secondplayer_choice.dbuserChoice2 == "rock") {
+                        document.getElementById("winner").innerHTML = snapshot.val().userTwo.dbusername2 + " wins";
+                        user2Wins++
+                    }
+                    else if (snapshot.val().secondplayer_choice.dbuserChoice2 == "paper") {
+                        console.log(" user 1tie")
+                        document.getElementById("winner").innerHTML = "its a tie";
+                    }
+                    else if (snapshot.val().secondplayer_choice.dbuserChoice2 == "scissors") {
+                        user1Wins++
+                        console.log(" user 1 win")
+                        document.getElementById("winner").innerHTML = snapshot.val().userOne.dbusername1 + " wins";
+                    }
+                }
+                else if (snapshot.val().firstplayer_choice.dbuserChoice1 == "scissors") {
+                    if (snapshot.val().secondplayer_choice.dbuserChoice2 == "rock") {
+                        console.log("user 1 lose")
+                        document.getElementById("winner").innerHTML = snapshot.val().userTwo.dbusername2 + " wins";
+                        user2Wins++
+                    }
+                    else if (snapshot.val().secondplayer_choice.dbuserChoice2 == "paper") {
+                        user1Wins++
+                        console.log("user 1 win")
+                        document.getElementById("winner").innerHTML = snapshot.val().userOne.dbusername1 + " wins";
+                    }
+                    else if (snapshot.val().secondplayer_choice.dbuserChoice2 == "scissors") {
+                        console.log("user 1 tie")
+                        document.getElementById("winner").innerHTML = "its a tie";
+
+                    }
+                }
+
+                database.ref("/firstplayer_choice").remove();
+                database.ref("/secondplayer_choice").remove();
+
+                database.ref("/userOnewins").set({
+                    dbuser1Wins: user1Wins,
+                });
+
+
+                database.ref("/userTwowins").set({
+                    dbuser2Wins: user2Wins,
+
+                });
+            }
+        });
+
+        database.ref().on("value", function (snapshot) {
+            document.getElementById("p1wins").innerHTML = snapshot.val().userOnewins.dbuser1Wins;
+            document.getElementById("p2wins").innerHTML = snapshot.val().userTwowins.dbuser2Wins;
+        });
+
+            function remove() {
+                database.ref().remove()
+            }
+
+
+
+
+
+    </script>
+</body>
+
+</html>

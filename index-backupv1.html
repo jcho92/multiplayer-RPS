@@ -1,0 +1,137 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>rock paper scissors</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+
+</head>
+
+<body>
+    <form>
+        <input type="text" id="player1">
+        <input type="submit" id="addUser1" value="submit">
+    </form>
+
+    
+    <h2>Rock Paper scissors!</h2>
+    <button id="rock" onclick="rock1()">rock1</button>
+    <button id="paper">paper1</button>
+    <button id="siccors">scissors1</button>
+
+    <form>
+            <input type="text" id="player2">
+            <input type="submit" id="addUser2" value="submit">
+        </form> 
+
+        <h2>Rock Paper scissors!</h2>
+    <button id="rock" onclick="rock2()">rock2</button>
+    <button id="paper">paper2</button>
+    <button id="siccors">scissors2</button>
+
+    <script>
+
+
+        var config = {
+            apiKey: "AIzaSyCBGPX62rFRoiqdJn4GKjjqZgmJwKu_reY",
+            authDomain: "john-e11b3.firebaseapp.com",
+            databaseURL: "https://john-e11b3.firebaseio.com",
+            projectId: "john-e11b3",
+            storageBucket: "john-e11b3.appspot.com",
+            messagingSenderId: "530050015277"
+        };
+
+        firebase.initializeApp(config);
+        var database = firebase.database();
+        console.log(database);
+        var username1 =0 ;
+        var userchoice1=0 ;
+        var username2 =0;
+        var userchoice2=0;
+
+        $("#addUser1").on("click", function (event) {
+            event.preventDefault();
+            console.log($("#player1").val());
+            username1 = $("#player1").val()
+            console.log($("#player1").val());
+            database.ref().set({
+                dbuserChoice1: userchoice1,
+                dbusername1: username1,
+                dbuserChoice2: userchoice2,
+                dbusername2: username2,
+            })
+            database.ref().on("value", function (snapshot) {
+                console.log((snapshot).val().dbusername1);
+            })
+        })
+        function rock1() {
+            userchoice1 = "rock"
+            database.ref().set({
+                dbuserChoice1: userchoice1,
+                dbusername1: username1,
+                dbuserChoice2: userchoice2,
+                dbusername2: username2,
+            });
+            database.ref().on("value", function (snapshot) {
+                console.log((snapshot).val().dbuserChoice1);
+                console.log((snapshot).val().dbusername1);
+            })
+        };
+
+        $("#addUser2").on("click", function (event) {
+            event.preventDefault();
+            console.log($("#player2").val());
+            username2 = $("#player2").val()
+            console.log($("#player2").val());
+            database.ref().set({
+                dbuserChoice1: userchoice1,
+                dbusername1: username1,
+                dbuserChoice2: userchoice2,
+                dbusername2: username2,
+            })
+            database.ref().on("value", function (snapshot) {
+                console.log((snapshot).val().dbusername2);
+            })
+        })
+        function rock2() {
+            var userchoice2 = "rock"
+            database.ref().set({
+                dbuserChoice1: userchoice1,
+                dbusername1: username1,
+                dbuserChoice2: userchoice2,
+                dbusername2: username2,
+            });
+            database.ref().on("value", function (snapshot) {
+                console.log((snapshot).val().dbuserChoice2);
+                console.log((snapshot).val().dbusername2);
+            })
+        }
+
+
+
+//if state
+
+database.ref().on("value", function(snapshot) {
+
+
+if (snapshot.child("dbuserChoice1").exists() && snapshot.child("dbuserChoice2").exists()) {
+
+  console.log("both exists")
+}
+else(
+    console.log("nothing is being picked up")
+)
+});
+
+
+
+
+    </script>
+</body>
+
+</html>
