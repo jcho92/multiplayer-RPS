@@ -300,4 +300,5 @@ function remove() {
         dbchatuser2: " ",
         
     })
+   location.reload();
     }
