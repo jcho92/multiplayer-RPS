@@ -46,6 +46,7 @@ database.ref().on("value", function (snapshot) {
 
 // function determins which user depending on who loads first
 function start() {
+   $(".interface").css("display", "block")
     database.ref().once("value", function (snapshot) {
 
         console.log(snapshot.child("userTwo/dbusername2").exists())
@@ -97,7 +98,7 @@ $("#addUser1").on("click", function (event) {
     database.ref("/userOnewins").set({
         dbuser1Wins: user1Wins,
     })
-
+$("#addUser1").css("display", "none")
 })
 function rock1() {
     userchoice1 = "rock"
@@ -137,6 +138,7 @@ $("#addUser2").on("click", function (event) {
     database.ref("/userTwowins").set({
         dbuser2Wins: user2Wins,
     })
+    $("#addUser2").css("display", "none")
 
 
 })
@@ -266,6 +268,7 @@ $("#chatsubmit1").on("click", function (event) {
     database.ref("/chatuser1").set({
         dbchatuser1: chatuser1,
     })
+    $("#chatuser1").val('');
 })
 
 $("#chatsubmit2").on("click", function (event) {
@@ -274,6 +277,7 @@ $("#chatsubmit2").on("click", function (event) {
     database.ref("/chatuser2").set({
         dbchatuser2: chatuser2,
     })
+    $("#chatuser2").val('');
 })
 
 database.ref().on("value", function (snapshot) {

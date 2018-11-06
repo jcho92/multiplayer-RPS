@@ -15,9 +15,12 @@
 <body>
 
     <div id="header">
-        <p id="status"></p>
-        <p id="statusID"></p>
-        <button id="start" onclick="start()">press start to play</button>
+        <div id="header-box">
+            <p id="status"></p>
+            <h2>players:</h2>
+            <p id="statusID"></p>
+            <button id="start" onclick="start()">press start to play</button>
+        </div>
     </div>
 
     <div>
@@ -37,12 +40,12 @@
                 <div class="userinterface">
                     <h2>Rock Paper scissors!</h2>
                     <p id="p1choice"></p>
-                    <button id="rock" onclick="rock1()">rock1</button>
-                    <button id="paper" onclick="paper1()">paper1</button>
-                    <button id="siccors" onclick="scissors1()">scissors1</button>
+                    <button id="rock" onclick="rock1()">rock</button>
+                    <button id="paper" onclick="paper1()">paper</button>
+                    <button id="siccors" onclick="scissors1()">scissors</button>
                     <p id="p1chat"></p>
                     <p id="p1message"></p>
-                    <form>
+                    <form id="chatform1">
                         <input type="text" id="chatuser1">
                         <input type="submit" id="chatsubmit1" value="message">
                     </form>
@@ -61,13 +64,13 @@
                 <div class="userinterface">
                     <h2>Rock Paper scissors!</h2>
                     <p id="p2choice"></p>
-                    <button id="rock" onclick="rock2()">rock2</button>
-                    <button id="paper" onclick="paper2()">paper2</button>
-                    <button id="siccors" onclick="scissors2();">scissors2</button>
+                    <button id="rock" onclick="rock2()">rock</button>
+                    <button id="paper" onclick="paper2()">paper</button>
+                    <button id="siccors" onclick="scissors2();">scissors</button>
                     <p id="p2chat"></p>
 
                     <p id="p2message"></p>
-                    <form>
+                    <form id="chatform2">
                         <input type="text" id="chatuser2">
                         <input type="submit" id="chatsubmit2" value="message">
                     </form>
@@ -75,19 +78,19 @@
             </div>
         </div>
         <div id="mutualdisplay">
-            <h2>player names</h2>
+        
             <div>
                 <h2 id="winner">Who won?</h2>
             </div>
-            <p id="playernameone">player name </p><span id="p1wins">test1</span>
-            <p id="playernametwo">player name </p><span id="p2wins">test2</span>
+            <p id="playernameone">player name </p><span id="p1wins"></span>
+            <p id="playernametwo">player name </p><span id="p2wins"></span>
 
         </div>
 
     </div>
     </div>
     <div class="reset">
-        <button onclick="remove()">remove</button>
+        <button onclick="remove()">reset</button>
     </div>
     <script src="main.js">
 
